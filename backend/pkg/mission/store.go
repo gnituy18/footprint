@@ -1,7 +1,7 @@
 package mission
 
 import (
-	"context"
+	"footprint/pkg/context"
 )
 
 type Store interface {
