@@ -4,8 +4,11 @@ import (
 	"github.com/valyala/fasthttp"
 
 	"footprint/pkg/api"
+	"footprint/pkg/log"
 )
 
 func main() {
-	fasthttp.ListenAndServe(":8080", api.Router().HandleRequest)
+	if err := fasthttp.ListenAndServe(":8080", api.Router().HandleRequest); err != nil {
+		log.Global().Error("fasthttp.ListenAndServe failed in main")
+	}
 }
