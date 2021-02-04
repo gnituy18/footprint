@@ -1,22 +1,23 @@
 package api
 
 import (
-	"github.com/fasthttp/router"
-	"github.com/valyala/fasthttp"
+	"github.com/qiangxue/fasthttp-routing"
 
 	"footprint/pkg/mission"
 )
 
-func Mount() {
-	root := router.New()
+func Router() *routing.Router {
+	root := routing.New()
+	root.Use(WithContext)
 
-	root.GET("/health", func(ctx *fasthttp.RequestCtx) {
+	root.Get("/health", func(ctx *routing.Context) error {
 		ctx.WriteString("healthy")
+		return nil
 	})
 
 	missionStore := mission.NewStore()
 	missionGroup := root.Group("/mission")
 	MountMissionRoutes(missionGroup, missionStore)
 
-	fasthttp.ListenAndServe(":8080", root.Handler)
+	return root
 }

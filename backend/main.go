@@ -1,9 +1,11 @@
 package main
 
 import (
+	"github.com/valyala/fasthttp"
+
 	"footprint/pkg/api"
 )
 
 func main() {
-	api.Mount()
+	fasthttp.ListenAndServe(":8080", api.Router().HandleRequest)
 }

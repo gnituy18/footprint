@@ -3,24 +3,24 @@ package api
 import (
 	"fmt"
 
-	"github.com/fasthttp/router"
-	"github.com/valyala/fasthttp"
+	"github.com/qiangxue/fasthttp-routing"
 
 	"footprint/pkg/mission"
 )
 
-func MountMissionRoutes(group *router.Group, missionStore mission.Store) {
+func MountMissionRoutes(group *routing.RouteGroup, missionStore mission.Store) {
 	handler := &missionHandler{
 		missionStore: missionStore,
 	}
 
-	group.GET("/{ID}", handler.getMission)
+	group.Get("/<id>", handler.getMission)
 }
 
 type missionHandler struct {
 	missionStore mission.Store
 }
 
-func (mh *missionHandler) getMission(ctx *fasthttp.RequestCtx) {
+func (mh *missionHandler) getMission(ctx *routing.Context) error {
 	fmt.Println("hello world")
+	return nil
 }

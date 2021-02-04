@@ -1,6 +1,8 @@
 package api
 
 import (
+	"net/http"
+
 	"encoding/json"
 
 	"github.com/valyala/fasthttp"
@@ -9,7 +11,7 @@ import (
 func JSON(ctx *fasthttp.RequestCtx, status int, body interface{}) {
 	bs, err := json.Marshal(body)
 	if err != nil {
-		ctx.WriteString("err")
+		ctx.Error("json.Marshal failed", http.StatusInternalServerError)
 		return
 	}
 

@@ -5,13 +5,13 @@ import (
 )
 
 type Mission struct {
-	ID          string `bson:"ID"`
+	ID          string `bson:"id"`
 	Name        string `bson:"name"`
 	Description string `bson:"description"`
 }
 
 func (m *Mission) MarshalLogObject(encoder zapcore.ObjectEncoder) error {
-	encoder.AddString("ID", m.ID)
+	encoder.AddString("id", m.ID)
 	encoder.AddString("name", m.Name)
 	encoder.AddString("description", m.Description)
 	return nil
