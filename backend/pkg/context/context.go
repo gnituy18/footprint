@@ -11,8 +11,8 @@ type Context struct {
 	*log.Logger
 }
 
-func Background() gocontext.Context {
-	return &Context{
+func Background() Context {
+	return Context{
 		Context: gocontext.Background(),
 		Logger:  log.New(),
 	}

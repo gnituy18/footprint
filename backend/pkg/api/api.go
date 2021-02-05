@@ -3,6 +3,7 @@ package api
 import (
 	"github.com/qiangxue/fasthttp-routing"
 
+	"footprint/pkg/log"
 	"footprint/pkg/mission"
 )
 
@@ -10,8 +11,9 @@ func Router() *routing.Router {
 	root := routing.New()
 	root.Use(WithContext)
 
-	root.Get("/health", func(ctx *routing.Context) error {
-		ctx.WriteString("healthy")
+	root.Get("/health", func(rctx *routing.Context) error {
+		rctx.WriteString("healthy")
+		log.Global().Info("healthy")
 		return nil
 	})
 
