@@ -13,8 +13,12 @@ type Logger struct {
 }
 
 func New() *Logger {
+	logger, err := zap.NewDevelopment()
+	if err != nil {
+		panic(err)
+	}
 	return &Logger{
-		SugaredLogger: zap.NewNop().Sugar(),
+		SugaredLogger: logger.Sugar(),
 	}
 }
 
