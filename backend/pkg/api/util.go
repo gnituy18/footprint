@@ -1,19 +1,18 @@
 package api
 
 import (
+	"encoding/json"
 	"net/http"
 
-	"encoding/json"
-
-	"github.com/valyala/fasthttp"
+	"github.com/qiangxue/fasthttp-routing"
 )
 
-func JSON(ctx *fasthttp.RequestCtx, status int, body interface{}) {
+func JSON(rctx *routing.Context, status int, body interface{}) {
 	bs, err := json.Marshal(body)
 	if err != nil {
-		ctx.Error("json.Marshal failed", http.StatusInternalServerError)
+		rctx.Error("json.Marshal failed", http.StatusInternalServerError)
 		return
 	}
 
-	ctx.Write(bs)
+	rctx.Write(bs)
 }

@@ -1,7 +1,13 @@
 package mission
 
 import (
+	"errors"
+
 	"footprint/pkg/context"
+)
+
+var (
+	ErrNotFound = errors.New("mission not found")
 )
 
 type Store interface {
