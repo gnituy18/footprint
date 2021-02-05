@@ -11,12 +11,26 @@ import (
 	"footprint/pkg/mission"
 )
 
+type missionRepr struct {
+	ID          string `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+}
+
+func missionToRepr(m *mission.Mission) *missionRepr {
+	return &missionRepr{
+		ID:          m.ID,
+		Name:        m.Name,
+		Description: m.Description,
+	}
+}
+
 func MountMissionRoutes(group *routing.RouteGroup, missionStore mission.Store) {
 	handler := &missionHandler{
 		missionStore: missionStore,
 	}
 
-	group.Post("/", handler.createMission)
+	group.Post("", handler.createMission)
 	group.Get("/<id>", handler.getMission)
 }
 
@@ -38,13 +52,13 @@ func (mh *missionHandler) createMission(rctx *routing.Context) error {
 		return err
 	}
 
-	err := mh.missionStore.Create(ctx, m)
+	id, err := mh.missionStore.Create(ctx, m)
 	if err != nil {
 		ctx.With(zap.Error(err)).Error("missionHandler.missionStore.Create failed in missionHandler.getMission")
 		return err
 	}
 
-	JSON(rctx, http.StatusOK, m)
+	JSON(rctx, http.StatusOK, id)
 	return nil
 }
 
@@ -61,6 +75,8 @@ func (mh *missionHandler) getMission(rctx *routing.Context) error {
 		return err
 	}
 
-	JSON(rctx, http.StatusOK, m)
+	repr := missionToRepr(m)
+
+	JSON(rctx, http.StatusOK, repr)
 	return nil
 }

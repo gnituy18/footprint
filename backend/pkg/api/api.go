@@ -9,7 +9,8 @@ import (
 
 func Router() *routing.Router {
 	root := routing.New()
-	root.Use(WithContext)
+	root.Use(InjectContext)
+	root.Use(LogRequest)
 
 	root.Get("/health", func(rctx *routing.Context) error {
 		rctx.WriteString("healthy")

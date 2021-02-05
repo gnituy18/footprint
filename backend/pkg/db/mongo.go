@@ -1,6 +1,8 @@
 package db
 
 import (
+	"context"
+
 	"footprint/pkg/log"
 
 	"go.mongodb.org/mongo-driver/mongo"
@@ -21,6 +23,10 @@ func GetMongo() (*mongo.Client, error) {
 	if err != nil {
 		log.Global().With(zap.Error(err)).Error("mongo.NewClient failed in db.GetMongo")
 		return nil, err
+	}
+
+	if err := client.Connect(context.Background()); err != nil {
+		panic(err)
 	}
 
 	mongoClient = client
