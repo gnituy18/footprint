@@ -6,3 +6,7 @@ services:
     restart: always
     ports: 
       - "27017:27017"
+  backend:
+    build: ../backend
+    ports: 
+      - "8080:8080"
