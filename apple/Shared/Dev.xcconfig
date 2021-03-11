@@ -1,0 +1,11 @@
+//
+//  Dev.xcconfig
+//  Footprint
+//
+//  Created by sfhp on 2021/3/9.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+BACKEND_URL = https:/$()/localhost:8080
